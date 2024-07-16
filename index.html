@@ -11,62 +11,68 @@
 <body class="grid grid-rows-2 grid-cols-3 h-[100dvh]">
   <aside class="row-span-2 bg-emerald-300 flex flex-col justify-between py-5 px-2">
     <h1 class="text-2xl font-bold px-6 py-2">Calculador de Investimentos</h1>
-    <form>
-      <div class="flex w-full flex-col px-6">
+    <form id="investiment-form">
+      <div class="flex w-full flex-col px-6 h-[4.25rem]">
         <label for="initial-investiment" class="font-bold text-gray-700">Investimento Inicial</label>
         <div class="flex">
           <input type="text" class="w-1/6 text-center rounded-l-lg" value="R$" disabled>
-          <input type="number" class="w-5/6 rounded-r-lg border-l-2 border-emerald-600 text-left px-6" id="initial-investiment" step="0.01" placeholder="0.00">
+          <input type="number" class="w-5/6 rounded-r-lg border-l-2 border-emerald-600 text-left px-6"
+            id="initial-investiment" name="initial-investiment" step="0.01" placeholder="0.00" required>
         </div>
       </div>
-      <div class="flex w-full flex-col px-6">
-        <label for="adicional-aports" class="font-bold text-gray-700">Aportes adicionais</label>
+      <div class="flex w-full flex-col px-6 h-[4.25rem]">
+        <label for="additional-aports" class="font-bold text-gray-700">Aportes adicionais</label>
         <div class="flex">
           <input type="text" class="w-1/6 text-center rounded-l-lg" value="R$" disabled>
-          <input type="number" class="w-5/6 rounded-r-lg border-l-2 border-emerald-600 text-left px-6" id="adicional-aports" step="0.01" placeholder="0.00">
+          <input type="number" class="w-5/6 rounded-r-lg border-l-2 border-emerald-600 text-left px-6"
+            id="additional-aports" name="additional-aports" step="0.01" placeholder="0.00">
         </div>
       </div>
-      <div class="flex w-full flex-col px-6">
+      <div class="flex w-full flex-col px-6 h-[4.25rem]">
         <label for="deadline" class="font-bold text-gray-700">Prazo</label>
         <div class="flex">
-          <input type="number" class="w-2/3 text-center rounded-l-lg" id="deadline">
+          <input type="number" class="w-2/3 text-center rounded-l-lg" id="deadline" name="deadline" required>
           <select name="deadline-period"
             class="w-1/3 rounded-r-lg border-l-2 border-emerald-600 text-center hover:bg-emerald-950 hover:text-slate-200"
-            id="deadline-period">
+            id="deadline-period" required>
             <option value="monthly">Mensal</option>
             <option value="yearly">Anual</option>
           </select>
         </div>
       </div>
-      <div class="flex w-full flex-col px-6">
+      <div class="flex w-full flex-col px-6 h-[4.25rem]">
         <label for="return-rate" class="font-bold text-gray-700">Rentabilidade</label>
         <div class="flex">
           <input type="text" class="w-1/6 text-center rounded-l-lg border-r-2 border-emerald-600" value="%" disabled>
-          <input type="number" class="w-1/2" id="return-rate" step="0.01">
+          <input type="number" class="w-1/2" id="return-rate" name="return-rate" step="0.01" required/>
           <select name="evaluation-period"
             class="w-1/3 rounded-r-lg border-l-2 border-emerald-600 text-center hover:bg-emerald-950 hover:text-slate-200"
-            id="evaluation-period">
+            id="evaluation-period" required>
             <option value="monthly">Mensal</option>
             <option value="yearly">Anual</option>
           </select>
         </div>
       </div>
-      <div class="flex w-full flex-col px-6">
+      <div class="flex w-full flex-col px-6 h-[4.25rem]">
         <label for="profit-tax" class="font-bold text-gray-700">Impostos sobre lucro</label>
         <div class="flex">
           <input type="text" class="w-1/6 text-center rounded-l-lg" value="%" disabled>
-          <input type="number" class="w-5/6 rounded-r-lg border-l-2 border-emerald-600 px-6" id="profit-tax" step="0.01" placeholder="0.00">
+          <input type="number" class="w-5/6 rounded-r-lg border-l-2 border-emerald-600 px-6" id="profit-tax" name="profit-tax" step="0.01"
+            placeholder="0.00" required>
         </div>
       </div>
     </form>
     <div class="flex gap-2 h-12 px-6 my-8 w-full">
-      <button class="w-1/2 rounded-lg bg-emerald-950 text-slate-200 hover:bg-emerald-800">Calcular</button>
-      <button class="w-1/2 rounded-lg hover:bg-emerald-500">Limpar</button>
+      <button id="calculate-button"
+        class="w-1/2 rounded-lg bg-emerald-950 text-slate-200 hover:bg-emerald-800"
+        form="investiment-form">Calcular</button>
+      <button id="clear-button" class="w-1/2 rounded-lg hover:bg-emerald-500">Limpar</button>
     </div>
   </aside>
   <main>
     <p>Resultado</p>
   </main>
+  <script src="main.js" type="module"></script>
 </body>
 
 </html>
