@@ -44,7 +44,7 @@
         <label for="return-rate" class="font-bold text-gray-700">Rentabilidade</label>
         <div class="flex">
           <input type="text" class="w-1/6 text-center rounded-l-lg border-r-2 border-emerald-600" value="%" disabled>
-          <input type="number" class="w-1/2" id="return-rate" name="return-rate" step="0.01" required/>
+          <input type="number" class="w-1/2" id="return-rate" name="return-rate" step="0.01" required />
           <select name="evaluation-period"
             class="w-1/3 rounded-r-lg border-l-2 border-emerald-600 text-center hover:bg-emerald-950 hover:text-slate-200"
             id="evaluation-period" required>
@@ -57,20 +57,19 @@
         <label for="profit-tax" class="font-bold text-gray-700">Impostos sobre lucro</label>
         <div class="flex">
           <input type="text" class="w-1/6 text-center rounded-l-lg" value="%" disabled>
-          <input type="number" class="w-5/6 rounded-r-lg border-l-2 border-emerald-600 px-6" id="profit-tax" name="profit-tax" step="0.01"
-            placeholder="0.00" required>
+          <input type="number" class="w-5/6 rounded-r-lg border-l-2 border-emerald-600 px-6" id="profit-tax"
+            name="profit-tax" step="0.01" placeholder="0.00" required>
         </div>
       </div>
     </form>
     <div class="flex gap-2 h-12 px-6 my-8 w-full">
-      <button id="calculate-button"
-        class="w-1/2 rounded-lg bg-emerald-950 text-slate-200 hover:bg-emerald-800"
+      <button id="calculate-button" class="w-1/2 rounded-lg bg-emerald-950 text-slate-200 hover:bg-emerald-800"
         form="investiment-form">Calcular</button>
       <button id="clear-button" class="w-1/2 rounded-lg hover:bg-emerald-500">Limpar</button>
     </div>
   </aside>
   <main class="row-span-2 col-span-2">
-    <section id="charts-container" class="h-full" >
+    <!-- <section id="charts-container" class="h-full" >
       <div class="h-[36%] flex flex-col items-center pb-10">
         <p class="font-bold text-lg">Resultado Final</p>
         <canvas id="final-money-distribution"></canvas>
@@ -79,6 +78,11 @@
         <p class="font-bold text-lg">Progressão</p>
         <canvas id="progression"></canvas>
       </div>
+    </section> -->
+    <section id="table-container" class="h-full overflow-y-auto">
+      <p class="font-bold text-lg text-center">Resultados Mensais</p>
+      <table class="w-full max-h-full border border-separate" id="table-results">
+      </table>
     </section>
   </main>
   <script src="main.js" type="module"></script>

@@ -1,11 +1,37 @@
 import { generateReturnArray } from "./src/investimentsGoals";
 import { Chart } from "chart.js/auto";
+import { createTable } from "./src/tables";
+
 const clearButton = document.getElementById("clear-button");
 const formulario = document.getElementById("investiment-form");
 const finalMoneyChart = document.getElementById("final-money-distribution");
 const progressionChart = document.getElementById("progression");
 let doughnutObjectReference = {};
 let progressionObjectReference = {};
+
+const columnsArray = [
+  { columnLabel: "Mês", accessor: "month" },
+  {
+    columnLabel: "Total Investido",
+    accessor: "investedAmount",
+    functionFn: (numberInfo) => formatCurrency(numberInfo),
+  },
+  {
+    columnLabel: "Rendimento Mensal",
+    accessor: "interestReturns",
+    functionFn: (numberInfo) => formatCurrency(numberInfo),
+  },
+  {
+    columnLabel: "Rendimento Total",
+    accessor: "totalInterestReturns",
+    functionFn: (numberInfo) => formatCurrency(numberInfo),
+  },
+  {
+    columnLabel: "Quantia Total",
+    accessor: "totalAmount",
+    functionFn: (numberInfo) => formatCurrency(numberInfo),
+  },
+];
 
 function renderProgression(evt) {
     evt.preventDefault();
@@ -15,7 +41,7 @@ function renderProgression(evt) {
   }
 
   clearCharts();
-  
+
   const startingAmount = Number(
     document.getElementById("initial-investiment").value.replace(",", ".")
   );
@@ -44,66 +70,68 @@ function renderProgression(evt) {
   );
 
 
-  const returnLastResult = returnArrays[returnArrays.length - 1];
-  doughnutObjectReference = new Chart(finalMoneyChart, {
-    type: "doughnut",
-    data: {
-      labels: ["Total Investido", "Rendimento", "Impostos"],
-      datasets: [
-        {
-          data: [
-            formatCurrency(returnLastResult.investedAmount),
-            formatCurrency(returnLastResult.totalInterestReturns * (1 - taxRate / 100)),
-            formatCurrency(returnLastResult.totalInterestReturns * (taxRate / 100)),
-          ],
-          backgroundColor: [
-            "rgb(255, 99, 132)",
-            "rgb(54, 162, 235)",
-            "rgb(255, 205, 86)",
-          ],
-          hoverOffset: 4,
-        },
-      ],
-    },
-  });
+  createTable(columnsArray, returnArrays, "table-results");
 
-  progressionObjectReference = new Chart(progressionChart, {
-    type: "bar",
-    data: {
-      labels: returnArrays.map((investimentObject) => investimentObject.month),
-      datasets: [
-        {
-          label: "Total Investido",
-          data: returnArrays.map(
-            (investimentObject) => investimentObject.investedAmount
-          ),
-          backgroundColor: "rgb(255, 99, 132)",
-        },
-        {
-          label: "Retorno do Investimento ",
-          data: returnArrays.map(
-            (investimentObject) => investimentObject.interestReturns
-          ),
-          backgroundColor: "rgb(54, 162, 235)",
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      scales: {
-        x: {
-          stacked: true,
-        },
-        y: {
-          stacked: true,
-        },
-      },
-    },
-  });
+  // const returnLastResult = returnArrays[returnArrays.length - 1];
+  // doughnutObjectReference = new Chart(finalMoneyChart, {
+  //   type: "doughnut",
+  //   data: {
+  //     labels: ["Total Investido", "Rendimento", "Impostos"],
+  //     datasets: [
+  //       {
+  //         data: [
+  //           formatCurrency(returnLastResult.investedAmount),
+  //           formatCurrency(returnLastResult.totalInterestReturns * (1 - taxRate / 100)),
+  //           formatCurrency(returnLastResult.totalInterestReturns * (taxRate / 100)),
+  //         ],
+  //         backgroundColor: [
+  //           "rgb(255, 99, 132)",
+  //           "rgb(54, 162, 235)",
+  //           "rgb(255, 205, 86)",
+  //         ],
+  //         hoverOffset: 4,
+  //       },
+  //     ],
+  //   },
+  // });
+
+  // progressionObjectReference = new Chart(progressionChart, {
+  //   type: "bar",
+  //   data: {
+  //     labels: returnArrays.map((investimentObject) => investimentObject.month),
+  //     datasets: [
+  //       {
+  //         label: "Total Investido",
+  //         data: returnArrays.map(
+  //           (investimentObject) => investimentObject.investedAmount
+  //         ),
+  //         backgroundColor: "rgb(255, 99, 132)",
+  //       },
+  //       {
+  //         label: "Retorno do Investimento ",
+  //         data: returnArrays.map(
+  //           (investimentObject) => investimentObject.interestReturns
+  //         ),
+  //         backgroundColor: "rgb(54, 162, 235)",
+  //       },
+  //     ],
+  //   },
+  //   options: {
+  //     responsive: true,
+  //     scales: {
+  //       x: {
+  //         stacked: true,
+  //       },
+  //       y: {
+  //         stacked: true,
+  //       },
+  //     },
+  //   },
+  // });
 }
 
 function formatCurrency(value){
-  return value.toFixed(2);
+  return value.toLocaleString('pt-BR', {style: "currency", currency: "BRL"});
 }
 
 function isObjectEmpty(obj) {
